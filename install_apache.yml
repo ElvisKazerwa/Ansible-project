@@ -9,15 +9,18 @@
    -  name: install apache2 package
       apt:
         name: apache2
-        state:  absent
+        state:  latest
+      when:  ansible_distribution in ["ubuntu" , "Debian" , "centos"]
 
 
    -  name:  update respitory index
       apt:
         update_cache: yes
+      when:  ansible_distribution in ["ubuntu" , "Debian" , "Centos"]
 
    -  name:  add php support for apache
       apt:
         name:  libapache2-mod-php
-        state:  absent
+        state:  latest
+      when:  ansible_distrubution in ["ubuntu" , "Debian" , "Centos"]
 

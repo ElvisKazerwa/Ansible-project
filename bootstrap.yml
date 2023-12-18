@@ -1,0 +1,41 @@
+---
+
+
+-  hosts: all
+   become: true
+   tasks:
+
+   - name:  install updates (Ubuntu)
+     tags:  always
+     apt:
+       upgrade:  dist
+       update_cache:  yes
+     when:  ansible_distribution ==  "Ubuntu"
+
+-  hosts:  all
+   become:  true
+   tasks:
+
+   - name:  create Elvis user
+     tags:  always
+     user:
+       name:  Elvis
+       groups:  root
+
+   - name:  add ssh key for Elvis
+     tags:  always
+     authorized_key:
+       user:  Elvis
+       key:  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAc+Dt3SuczhyoYXiuzVePAsyn0plzVj9nUg0iHWba1Z ansible"
+
+
+
+   -  name:  add sudoers file for Elvis
+      tags:  always
+      copy:
+        src:  sudoer_Elvis
+        dest:  /etc/sudoers.d/Elvis
+        owner:  root
+        group:  root
+        mode:  0440
+

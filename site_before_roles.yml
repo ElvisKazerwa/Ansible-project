@@ -3,7 +3,7 @@
 
 -  hosts: all
    become: true
-   pre_tasks:
+   tasks:
 
    - name:  install updates (Ubuntu)
      tags:  always
